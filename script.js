@@ -1,28 +1,32 @@
 function accountExist(email) {  
+
 //fetch userDetails from local storage
 let USERDATA = JSON.parse(localStorage.getItem("USERDATA"));
 
-USERDATA !== null && USERDATA[email] ? ` ${alert("account already exist")} ${window.location.href = "login.html" }` : null;
-
+    return USERDATA !== null && USERDATA[email] ?  true :  null;
 }
 
 
 function signUP(e){
   e.preventDefault();
 
-  let studentData = document.forms["studentData"];
+  let signUpData = document.forms["signUpData"];
      
     //getting the data through the formdata
-    let data = new FormData(studentData);
+    let data = new FormData(signUpData);
 
     let userinput = {
-        name: data.get("studentName"),
+        name: data.get("userName"),
         email: data.get("email"),
-        age: data.get("studentAge"),
+        age: data.get("userAge"),
         password: data.get("password"),
     }
 
-    accountExist(data.get("email"));  //checking if account exist
+    //checking if account exist
+    if(accountExist(data.get("email")) === true){
+        ` ${alert("account already exist")} ${window.location.href = "login.html" }`
+    };  
+    
 
     //validating the password
     if(data.get("password").length < 8 ){
@@ -47,5 +51,29 @@ function signUP(e){
 
 function login(e) {
     e.preventDefault();
+
+    let loginData = document.forms["loginData"];
+     
+    //getting the data through the formdata
+    let data = new FormData(loginData);
+
+    console.log(accountExist(data.get("email")))
+
+    if(accountExist(data.get("email")) === null){
+        alert("Account does not exist, sign up first!!");
+        return;
+    }
+
+    //fetch userDetails from local storage
+    let USERDATA = JSON.parse(localStorage.getItem("USERDATA"));
+    //validating the password
+    if(USERDATA[data.get("email")]["password"]!= data.get("password")){
+        alert("Incorrect email or password, try again!!");
+        return;
+    }
+
+    //redirecting to dashboard
+    alert("Login successful");
+    window.location.href = "dashboard.html";
 
 }
