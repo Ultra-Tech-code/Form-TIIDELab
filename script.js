@@ -1,5 +1,4 @@
 function accountExist(email) {  
-
 //fetch userDetails from local storage
 let USERDATA = JSON.parse(localStorage.getItem("USERDATA"));
 
@@ -57,9 +56,9 @@ function login(e) {
     //getting the data through the formdata
     let data = new FormData(loginData);
 
-    console.log(accountExist(data.get("email")))
+    let usermail = data.get("email")
 
-    if(accountExist(data.get("email")) === null){
+    if(accountExist(usermail) === null){
         alert("Account does not exist, sign up first!!");
         return;
     }
@@ -67,13 +66,51 @@ function login(e) {
     //fetch userDetails from local storage
     let USERDATA = JSON.parse(localStorage.getItem("USERDATA"));
     //validating the password
-    if(USERDATA[data.get("email")]["password"]!= data.get("password")){
+    if(USERDATA[usermail]["password"]!= data.get("password")){
         alert("Incorrect email or password, try again!!");
         return;
     }
 
     //redirecting to dashboard
     alert("Login successful");
-    window.location.href = "dashboard.html";
 
+    //storing it in local storage
+    localStorage.setItem("usermail",  usermail);
+    window.location.href = "dashboard.html";  
 }
+
+
+function dashboard(){
+    //fetch usermail from local storage
+    let usermail = localStorage.getItem("usermail")
+
+
+    //fetch userDetails from local storage
+    let USERDATA = JSON.parse(localStorage.getItem("USERDATA"));
+    
+     //get the table
+    let dashboardContent = document.getElementById("dashboardContent")
+
+
+    //creating a row in the table
+    let row = dashboardContent.insertRow();
+
+    let data = Object.values(USERDATA[usermail]);
+    
+    //iterate through each of the form element
+    data.forEach((datium, index) => {
+    let newCell = row.insertCell()
+
+      newCell.textContent = datium;
+    
+      // Check if this is not the last element
+      //prevent the password from being displayed
+        if (index === data.length - 1) {
+            maskedPassword = datium.replace(/./g, '*');
+            newCell.textContent = maskedPassword;
+        }
+    })
+
+ }
+
+
