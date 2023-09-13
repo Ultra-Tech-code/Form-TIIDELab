@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Recover password</title>
+</head>
+<body>
+
+
+  <h1>Student Page</h1>
+
+
+  <div class="form-container">
+    <h2 class="form-title"> Recover Password Form</h2>
+
+    <form name="recoverData" onsubmit="recover(event)">
+        
+        <div class="form-group">
+            <label for="userName">Student Name:</label>
+        <input type="text" id="userName" name="userName" placeholder="Full Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="userAge">Age:</label>
+        <input type="number" id="userAge" name="userAge" placeholder="Age" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+        <input type="email" id="userEmail" name="email" placeholder="Email" required>
+        </div>
+
+        <input class="button" type="submit">
+
+    </form>
+  </div>
+    
+</body>
+<script src="script.js"></script>
+</html>
