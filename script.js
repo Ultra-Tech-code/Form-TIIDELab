@@ -135,11 +135,54 @@ function recover(e){
 
     if(formdata.get("email") == storageData['email'] && formdata.get("userName") == storageData['name'] && formdata.get("userAge") == storageData['age']){
         alert(storageData['password']);
+        //mailUser(usermail, storageData['password'])
         recoverData.reset();
     } else{
         alert("Invalid Details, verify and try again.")
     }
 }
+
+
+
+
+function mailUser(rec, sub ){
+const recipient = rec;
+const subject = sub;
+const body = 'Your password on Student Page website ';
+
+const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+window.location.href = mailtoLink;
+}
+
+
+
+
+
+
+
+// //mail function with sendgrid {need to install .env to protect the apikey} //process loong
+// function mail(){
+//     const apiKey = 'your-sendgrid-api-key';
+//     const sgMail = require('@sendgrid/mail');
+    
+//     sgMail.setApiKey(apiKey);
+    
+//     const msg = {
+//       to: 'recipient@example.com',
+//       from: 'sender@example.com',
+//       subject: 'Hello',
+//       text: 'This is the body of the email.'
+//     };
+    
+//     sgMail.send(msg)
+//       .then(() => {
+//         console.log('Email sent successfully');
+//       })
+//       .catch((error) => {
+//         console.error('Error occurred:', error);
+//       })
+//     }
 
 
 
